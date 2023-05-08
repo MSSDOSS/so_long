@@ -18,6 +18,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
+char	**ft_split(char const *s, char c);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*get_next_line(int fd);
+char	*ft_strdup(const char *s1);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+size_t	ft_strlen(const char *str );
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
+void	*ft_memmove(void *dst, const void *src, size_t len);
 
 #endif
