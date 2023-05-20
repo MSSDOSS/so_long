@@ -107,29 +107,36 @@ static int	check_av(char *av)
 
 int	main(int ac, char **av)
 {
-	// void	*mlx_ptr;
 	// void	*win_ptr;
+	int		w = 0;
+	int		h = 0;
 	// char	**valid_road;
 	t_data	map;
 
-	// if (ac != 2)
-	// {
-	// 	ft_putstr("sorry!! you need to insert two arguments\n");
-	// 	return (0);
-	// }
 	if (ac == 2 && check_av(av[1]))
 	{
-		// valid_road = read_map(av[1]);
-		// map.lmap = read_map(av[1]);
 		get_map(av[1] ,&map);
-		// if (parsing_lmap(&map) != 0)
-		// {
-	// 		// free_koulchi(valid_road);
-			initialize_the_struct(&map);
-			printf("\n||%d||\n", 2000);
-			draw_m(&map);
-			printf("\n||%d||\n", 3000);
-			mlx_loop(map.con_id);
+		w = ft_strlen(map.lmap[0]) * 50;
+		while (map.lmap[h] != 0)
+			h++;
+		h *= 50;
+		initialize_the_struct(&map);
+		map.mlx_ptr = mlx_init();
+		map.win_ptr = mlx_new_window(map.mlx_ptr, w, h, "so_long");
+		draw_m(&map);
+		h = 0;
+		while(map.lmap[h])
+		{
+			w = 0;
+			while(map.lmap[h][w])
+			{
+				write(1, &map.lmap[h][w],1);
+				w++;
+			}
+			printf("\n");
+			h++;
+		}
+		mlx_loop(map.mlx_ptr);
 		// }
 		// else
 		// {
@@ -138,9 +145,6 @@ int	main(int ac, char **av)
 		// 	ft_putstr("Error:\nSomthing is going wrong... try to fix it.");
 		// 	exit(1);
 		// }
-			// mlx_ptr = mlx_init();
-			// win_ptr = mlx_new_window(mlx_ptr, 640, 480, "so_long");
-			// mlx_loop(mlx_ptr);
 	}
 	else
 	{

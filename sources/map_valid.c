@@ -99,7 +99,7 @@ int	parsing_lmap(t_data *data)
 		return (1);
 	else
 		printf("\nmochkil fmap parcing\n");
-		printf("\nmochkil fmap parcing\n");
-		printf("\nmochkil fmap parcing\n");
+		// printf("\nmochkil fmap parcing\n");
+		// printf("\nmochkil fmap parcing\n");
 	return (0);
 }

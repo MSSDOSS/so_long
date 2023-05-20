@@ -13,7 +13,7 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include <mlx.h>
+# include "mlx/mlx.h"
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -37,24 +37,16 @@
 
 typedef struct da_data
 {
-	void	*player;
-	void	*space;
+	void	*mlx_ptr;
+	void	*win_ptr;
+	char	**lmap;
 	void	*wall;
+	void	*space;
+	void	*player;
 	void	*collect;
 	void	*exit;
-	char	**lmap;
-	void	*window;
-	void	*con_id;
-	int		m_width;
-	int		m_height;
-	int		img_width;
-	int		img_height;
-	int		n_collect;
-	int		n_player;
-	int		n_exit;
 	int		x_player;
 	int		y_player;
-	int		moves;
 }	t_data;
 
 char	**ft_split(char const *s, char c);
