@@ -6,138 +6,138 @@
 /*   By: hel-haia <hel-haia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 22:39:08 by hel-haia          #+#    #+#             */
-/*   Updated: 2023/05/30 06:09:36 by hel-haia         ###   ########.fr       */
+/*   Updated: 2023/05/31 00:19:29 by hel-haia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-void	player_update_image(char key, t_data *data)
+void	player_update_image(char key, t_info *info)
 {
-	mlx_destroy_image(data->mlx_ptr, data->player);
+	mlx_destroy_image(info->mlx_ptr, info->player);
 	if (key == 'q')
-		data->player = mlx_xpm_file_to_image
-			(data->mlx_ptr, D2R, &data->img_w, &data->img_h);
+		info->player = mlx_xpm_file_to_image
+			(info->mlx_ptr, ZR, &info->img_w, &info->img_h);
 	else if (key == 'z')
-		data->player = mlx_xpm_file_to_image
-			(data->mlx_ptr, D2L, &data->img_w, &data->img_h);
+		info->player = mlx_xpm_file_to_image
+			(info->mlx_ptr, ZL, &info->img_w, &info->img_h);
 	else if (key == 'd')
-		data->player = mlx_xpm_file_to_image
-			(data->mlx_ptr, D2R, &data->img_w, &data->img_h);
+		info->player = mlx_xpm_file_to_image
+			(info->mlx_ptr, ZR, &info->img_w, &info->img_h);
 	else if (key == 's')
-		data->player = mlx_xpm_file_to_image
-			(data->mlx_ptr, D2L, &data->img_w, &data->img_h);
+		info->player = mlx_xpm_file_to_image
+			(info->mlx_ptr, ZL, &info->img_w, &info->img_h);
 }
 
-void	player_q(t_data *data)
+void	player_q(t_info *info)
 {
-	player_update_image('q', data);
-	if ((data->map[data->y_player][data->x_player] == 'E'
-		&& data->n_collect == 0) ||
-		(data->map[data->y_player][data->x_player] == 'N'))
+	player_update_image('q', info);
+	if ((info->map[info->y_player][info->x_player] == 'E'
+		&& info->n_collect == 0) ||
+		(info->map[info->y_player][info->x_player] == 'N'))
 	{
-		mlx_clear_window(data->mlx_ptr, data->win);
-		data->map[data->y_player + 1][data->x_player] = '0';
-		data->moves++;
+		mlx_clear_window(info->mlx_ptr, info->mlx_win);
+		info->map[info->y_player + 1][info->x_player] = '0';
+		info->moves++;
 		exit(0);
 	}
-	else if (data->map[data->y_player][data->x_player] == '1'
-		|| data->map[data->y_player][data->x_player] == 'E')
-		data->y_player += 1;
+	else if (info->map[info->y_player][info->x_player] == '1'
+		|| info->map[info->y_player][info->x_player] == 'E')
+		info->y_player += 1;
 	else
 	{
-		mlx_clear_window(data->mlx_ptr, data->win);
-		if (data->map[data->y_player][data->x_player] == 'C')
-			data->n_collect -= 1;
-		data->map[data->y_player][data->x_player] = 'P';
-		data->map[data->y_player + 1][data->x_player] = '0';
-		data->moves++;
-		enemy_anime(data);
-		draw_the_map(data);
-	}
-}
-
-void	player_z(t_data *data)
-{
-	player_update_image('z', data);
-	if ((data->map[data->y_player][data->x_player] == 'E'
-		&& data->n_collect == 0)
-		|| (data->map[data->y_player][data->x_player] == 'N'))
-	{
-		mlx_clear_window(data->mlx_ptr, data->win);
-		data->map[data->y_player - 1][data->x_player] = '0';
-		data->moves++;
-		draw_the_map(data);
-		exit(0);
-	}
-	else if (data->map[data->y_player][data->x_player] == '1'
-		|| data->map[data->y_player][data->x_player] == 'E')
-		data->y_player -= 1;
-	else
-	{
-		mlx_clear_window(data->mlx_ptr, data->win);
-		if (data->map[data->y_player][data->x_player] == 'C')
-			data->n_collect -= 1;
-		data->map[data->y_player][data->x_player] = 'P';
-		data->map[data->y_player - 1][data->x_player] = '0';
-		data->moves++;
-		enemy_anime(data);
-		draw_the_map(data);
+		mlx_clear_window(info->mlx_ptr, info->mlx_win);
+		if (info->map[info->y_player][info->x_player] == 'C')
+			info->n_collect -= 1;
+		info->map[info->y_player][info->x_player] = 'P';
+		info->map[info->y_player + 1][info->x_player] = '0';
+		info->moves++;
+		enemy_anime(info);
+		map_drawin(info);
 	}
 }
 
-void	player_d(t_data *data)
+void	player_z(t_info *info)
 {
-	player_update_image('d', data);
-	if ((data->map[data->y_player][data->x_player] == 'E'
-		&& data->n_collect == 0)
-		|| (data->map[data->y_player][data->x_player] == 'N'))
+	player_update_image('z', info);
+	if ((info->map[info->y_player][info->x_player] == 'E'
+		&& info->n_collect == 0)
+		|| (info->map[info->y_player][info->x_player] == 'N'))
 	{
-		mlx_clear_window(data->mlx_ptr, data->win);
-		data->map[data->y_player][data->x_player - 1] = '0';
-		data->moves++;
+		mlx_clear_window(info->mlx_ptr, info->mlx_win);
+		info->map[info->y_player - 1][info->x_player] = '0';
+		info->moves++;
+		map_drawin(info);
 		exit(0);
 	}
-	else if (data->map[data->y_player][data->x_player] == '1'
-		|| data->map[data->y_player][data->x_player] == 'E')
-		data->x_player -= 1;
+	else if (info->map[info->y_player][info->x_player] == '1'
+		|| info->map[info->y_player][info->x_player] == 'E')
+		info->y_player -= 1;
 	else
 	{
-		mlx_clear_window(data->mlx_ptr, data->win);
-		if (data->map[data->y_player][data->x_player] == 'C')
-			data->n_collect -= 1;
-		data->map[data->y_player][data->x_player] = 'P';
-		data->map[data->y_player][data->x_player - 1] = '0';
-		data->moves++;
-		enemy_anime(data);
-		draw_the_map(data);
+		mlx_clear_window(info->mlx_ptr, info->mlx_win);
+		if (info->map[info->y_player][info->x_player] == 'C')
+			info->n_collect -= 1;
+		info->map[info->y_player][info->x_player] = 'P';
+		info->map[info->y_player - 1][info->x_player] = '0';
+		info->moves++;
+		enemy_anime(info);
+		map_drawin(info);
 	}
 }
 
-void	player_s(t_data *data)
+void	player_d(t_info *info)
 {
-	player_update_image('s', data);
-	if ((data->map[data->y_player][data->x_player] == 'E'
-		&& data->n_collect == 0)
-		|| (data->map[data->y_player][data->x_player] == 'N'))
+	player_update_image('d', info);
+	if ((info->map[info->y_player][info->x_player] == 'E'
+		&& info->n_collect == 0)
+		|| (info->map[info->y_player][info->x_player] == 'N'))
 	{
-		mlx_clear_window(data->mlx_ptr, data->win);
-		data->map[data->y_player][data->x_player + 1] = '0';
-		data->moves++;
+		mlx_clear_window(info->mlx_ptr, info->mlx_win);
+		info->map[info->y_player][info->x_player - 1] = '0';
+		info->moves++;
 		exit(0);
 	}
-	else if (data->map[data->y_player][data->x_player] == '1' ||
-			data->map[data->y_player][data->x_player] == 'E')
-		data->x_player += 1;
+	else if (info->map[info->y_player][info->x_player] == '1'
+		|| info->map[info->y_player][info->x_player] == 'E')
+		info->x_player -= 1;
 	else
 	{
-		mlx_clear_window(data->mlx_ptr, data->win);
-		if (data->map[data->y_player][data->x_player] == 'C')
-			data->n_collect -= 1;
-		data->map[data->y_player][data->x_player] = 'P';
-		data->map[data->y_player][data->x_player + 1] = '0';
-		data->moves++;
-		enemy_anime(data);
-		draw_the_map(data);
+		mlx_clear_window(info->mlx_ptr, info->mlx_win);
+		if (info->map[info->y_player][info->x_player] == 'C')
+			info->n_collect -= 1;
+		info->map[info->y_player][info->x_player] = 'P';
+		info->map[info->y_player][info->x_player - 1] = '0';
+		info->moves++;
+		enemy_anime(info);
+		map_drawin(info);
+	}
+}
+
+void	player_s(t_info *info)
+{
+	player_update_image('s', info);
+	if ((info->map[info->y_player][info->x_player] == 'E'
+		&& info->n_collect == 0)
+		|| (info->map[info->y_player][info->x_player] == 'N'))
+	{
+		mlx_clear_window(info->mlx_ptr, info->mlx_win);
+		info->map[info->y_player][info->x_player + 1] = '0';
+		info->moves++;
+		exit(0);
+	}
+	else if (info->map[info->y_player][info->x_player] == '1' ||
+			info->map[info->y_player][info->x_player] == 'E')
+		info->x_player += 1;
+	else
+	{
+		mlx_clear_window(info->mlx_ptr, info->mlx_win);
+		if (info->map[info->y_player][info->x_player] == 'C')
+			info->n_collect -= 1;
+		info->map[info->y_player][info->x_player] = 'P';
+		info->map[info->y_player][info->x_player + 1] = '0';
+		info->moves++;
+		enemy_anime(info);
+		map_drawin(info);
 	}
 }

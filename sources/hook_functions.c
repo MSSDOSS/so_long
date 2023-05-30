@@ -6,82 +6,66 @@
 /*   By: hel-haia <hel-haia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 21:49:13 by hel-haia          #+#    #+#             */
-/*   Updated: 2023/05/30 04:58:47 by hel-haia         ###   ########.fr       */
+/*   Updated: 2023/05/31 00:02:46 by hel-haia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-// void	free_map(char **map)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (map[i] != (void *)0)
-// 	{
-// 		free(map[i]);
-// 		i++;
-// 	}
-// 	free(map);
-// 	map = NULL;
-// }
-
-int	exit_the_game(t_data *data)
+int	exit_the_game(t_info *info)
 {
-	// free_map(data->map);
-	mlx_destroy_image(data->mlx_ptr, data->space);
-	mlx_destroy_image(data->mlx_ptr, data->wall);
-	mlx_destroy_image(data->mlx_ptr, data->player);
-	mlx_destroy_image(data->mlx_ptr, data->collect);
-	mlx_destroy_image(data->mlx_ptr, data->exit);
-	mlx_destroy_window(data->mlx_ptr, data->win);
-	// free(data->mlx_ptr);
-	data->mlx_ptr = NULL;
+	mlx_destroy_image(info->mlx_ptr, info->space);
+	mlx_destroy_image(info->mlx_ptr, info->wall);
+	mlx_destroy_image(info->mlx_ptr, info->player);
+	mlx_destroy_image(info->mlx_ptr, info->collect);
+	mlx_destroy_image(info->mlx_ptr, info->exit);
+	mlx_destroy_window(info->mlx_ptr, info->mlx_win);
+	info->mlx_ptr = NULL;
 	exit(0);
 	return (0);
 }
 
-void	game_events(int keycode, t_data *data)
+void	game_events(int keycode, t_info *info)
 {
 	if (keycode == KEY_Q || keycode == KEY_UP)
 	{
-		data->y_player -= 1;
-		player_q(data);
+		info->y_player -= 1;
+		player_q(info);
 	}
 	else if (keycode == KEY_Z || keycode == KEY_DOWN)
 	{
-		data->y_player += 1;
-		player_z(data);
+		info->y_player += 1;
+		player_z(info);
 	}
 	else if (keycode == KEY_D || keycode == KEY_RIGHT)
 	{
-		data->x_player += 1;
-		player_d(data);
+		info->x_player += 1;
+		player_d(info);
 	}
 	else if (keycode == KEY_S || keycode == KEY_LEFT)
 	{
-		data->x_player -= 1;
-		player_s(data);
+		info->x_player -= 1;
+		player_s(info);
 	}
 }
 
-int	keypress(int keycode, t_data *data)
+int	keypress(int keycode, t_info *info)
 {
 	if (keycode == KEY_ESC)
-		exit_the_game(data);
+		exit_the_game(info);
 	else
 	{
-		game_events(keycode, data);
+		game_events(keycode, info);
 		ft_putstr("Moved ");
-		ft_putnbr(data->moves);
+		ft_putnbr(info->moves);
 		ft_putstr(" times\n");
 	}
 	return (0);
 }
 
-void	controller(t_data *data)
+void	keys_manage(t_info *info)
 {
-	mlx_hook(data->win, 2, 0, keypress, data);
-	mlx_hook(data->win, 17, 0, exit_the_game, data);
-	mlx_hook(data->win, 9, 0, draw_the_map, data);
+	mlx_hook(info->mlx_win, 2, 0, keypress, info);
+	mlx_hook(info->mlx_win, 17, 0, exit_the_game, info);
+	mlx_hook(info->mlx_win, 9, 0, map_drawin, info);
 }

@@ -6,7 +6,7 @@
 /*   By: hel-haia <hel-haia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 23:46:12 by hel-haia          #+#    #+#             */
-/*   Updated: 2023/05/29 23:37:16 by hel-haia         ###   ########.fr       */
+/*   Updated: 2023/05/31 00:05:43 by hel-haia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,31 +55,31 @@ int	is_surrounded_by_wall(char **map)
 	return (1);
 }
 
-int	plyer_collect_exit(t_data *data)
+int	plyer_collect_exit(t_info *info)
 {
 	int	i;
 	int	j;
 
-	data->n_collect = 0;
-	data->n_player = 0;
-	data->n_exit = 0;
+	info->n_collect = 0;
+	info->n_player = 0;
+	info->n_exit = 0;
 	i = 0;
-	while (data->map[i] != (void *)0)
+	while (info->map[i] != (void *)0)
 	{
 		j = 0;
-		while (data->map[i][j] != '\0')
+		while (info->map[i][j] != '\0')
 		{
-			if (data->map[i][j] == 'P')
-				data->n_player++;
-			else if (data->map[i][j] == 'E')
-				data->n_exit++;
-			else if (data->map[i][j] == 'C')
-				data->n_collect++;
+			if (info->map[i][j] == 'P')
+				info->n_player++;
+			else if (info->map[i][j] == 'E')
+				info->n_exit++;
+			else if (info->map[i][j] == 'C')
+				info->n_collect++;
 			j++;
 		}
 		i++;
 	}
-	if (data->n_player != 1 || data->n_exit != 1 || data->n_collect == 0)
+	if (info->n_player != 1 || info->n_exit != 1 || info->n_collect == 0)
 		return (0);
 	return (1);
 }
@@ -105,11 +105,11 @@ int	is_validate(char **map)
 	return (1);
 }
 
-int	map_checker(t_data *data)
+int	check_the_map(t_info *info)
 {
-	if (is_retangular(data->map) && is_surrounded_by_wall(data->map)
-		&& plyer_collect_exit(data)
-		&& is_validate(data->map))
+	if (is_retangular(info->map) && is_surrounded_by_wall(info->map)
+		&& plyer_collect_exit(info)
+		&& is_validate(info->map))
 		return (1);
 	return (0);
 }

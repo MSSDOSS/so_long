@@ -6,7 +6,7 @@
 /*   By: hel-haia <hel-haia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 06:50:27 by hel-haia          #+#    #+#             */
-/*   Updated: 2023/05/28 17:20:52 by hel-haia         ###   ########.fr       */
+/*   Updated: 2023/05/30 21:12:49 by hel-haia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	check_lexite(char **fmap)
 	return (0);
 }
 
-void	wa7d_function(char **fmap, int i, int j, char cp)
+void	flood_fill(char **fmap, int i, int j, char cp)
 {
 	while (fmap[i] != (void *)0)
 	{
@@ -51,7 +51,7 @@ void	wa7d_function(char **fmap, int i, int j, char cp)
 	}
 }
 
-int	wa7d_function_khra(char **fmap, int i, int j, char cp)
+int	check_player_path(char **fmap, int i, int j, char cp)
 {
 	while (fmap[i] != (void *)0)
 	{
@@ -62,7 +62,6 @@ int	wa7d_function_khra(char **fmap, int i, int j, char cp)
 						|| fmap[i][j +1] == 'P' || fmap[i -1][j] == 'P'
 						|| fmap[i +1][j] == 'P'))
 				return (1);
-
 			j++;
 		}
 		i++;
@@ -97,10 +96,11 @@ int	valid_path(char **v_path)
 
 	i = 0;
 	j = 0;
-	while (wa7d_function_khra(v_path, i, j, '0') || wa7d_function_khra(v_path, i, j, 'C'))
+	while (check_player_path(v_path, i, j, '0')
+		|| check_player_path(v_path, i, j, 'C'))
 	{
-		wa7d_function(v_path, i, j, '0');
-		wa7d_function(v_path, i, j, 'C');
+		flood_fill(v_path, i, j, '0');
+		flood_fill(v_path, i, j, 'C');
 	}
 	if (check_lexite(v_path) && check_all_collects(v_path))
 	{

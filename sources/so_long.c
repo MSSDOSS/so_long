@@ -6,60 +6,17 @@
 /*   By: hel-haia <hel-haia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 23:26:22 by hel-haia          #+#    #+#             */
-/*   Updated: 2023/05/30 04:58:47 by hel-haia         ###   ########.fr       */
+/*   Updated: 2023/05/31 00:05:43 by hel-haia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-// int	map_width(char *file)
-// {
-// 	int		i;
-// 	int		fd;
-
-// 	fd = open(file, O_RDONLY);
-// 	i = 0;
-// 	while(get_next_line(fd))
-// 	{
-// 		i++;
-// 	}
-// 	close(fd);
-// 	printf("%d\n", i);
-// 	return (i);
-// }
-
-// char	**get_map(char *str ,t_data *map)
-// {
-// 	int i;
-// 	int fd;
-// 	int	w;
-
-// 	i = 0;
-// 	w = 0;
-// 	w = map_width(str);
-// 	printf("%d\n", w);
-// 	map->lmap = malloc(sizeof(char *) * w);
-// 	if (!map->lmap){
-// 		printf("error\n");
-// 		exit(1);
-// 	}
-// 	fd = open(str,O_RDONLY);
-// 	map->lmap[i] = get_next_line(fd);
-// 	while (map->lmap[i])
-// 	{
-// 		i++;
-// 		map->lmap[i]=get_next_line(fd);
-// 	}
-// 	map->lmap[i] = (void *)0;
-// 	return (map);
-// }
-
-char	**ft_read_the_map(char *path)
+char	**map_read(char *path)
 {
 	int		fd;
 	char	*line;
 	char	*joiner;
-	// char	*temp;
 	char	**map;
 
 	fd = open(path, O_RDONLY);
@@ -71,9 +28,7 @@ char	**ft_read_the_map(char *path)
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		// temp = joiner;
 		joiner = ft_strjoin(joiner, line);
-		// free(temp);
 		free(line);
 	}
 	map = ft_split(joiner, '\n');
@@ -82,15 +37,13 @@ char	**ft_read_the_map(char *path)
 	return (map);
 }
 
-int	argv_checker(char *av)
+int	check_extension(char *av)
 {
 	int	i;
 
 	if (!av)
 		return (0);
 	i = ft_strlen(av);
-	// while (argv[i])
-	// 	i++;
 		i--;
 	if (av[i] == 'r' && av[i - 1] == 'e' && av[i - 2] == 'b'
 		&& av [i - 3] == '.')
@@ -98,36 +51,30 @@ int	argv_checker(char *av)
 	return (0);
 }
 
-void	start_the_game(t_data data, char **v_path)
+int	main(int ac, char **av)
 {
-	if (map_checker(&data) && valid_path(v_path))
-	{
-		initialize_the_struct(&data);
-		draw_the_map(&data);
-		mlx_loop(data.mlx_ptr);
-	}
-	else if (data.map)
-	{
-		ft_putstr("Error:\nSomthing is going wrong... try to fix it.");
-		exit(1);
-	}
-}
-
-int	main(int argc, char **argv)
-{
-	t_data	data;
+	t_info	info;
 	char	**v_path;
 
-	if (argc == 2 && argv_checker(argv[1]) == 1)
+	if (ac == 2 && check_extension(av[1]) == 1)
 	{
-		v_path = ft_read_the_map(argv[1]);
-		data.map = ft_read_the_map(argv[1]);
-		start_the_game(data, v_path);
+		v_path = map_read(av[1]);
+		info.map = map_read(av[1]);
+		if (check_the_map(&info) && valid_path(v_path))
+		{
+			infos_init(&info);
+			map_drawin(&info);
+			mlx_loop(info.mlx_ptr);
+		}
+		else if (info.map)
+		{
+			ft_putstr("Error:\nINVALID MAP");
+			exit(1);
+		}
 	}
 	else
 	{
-		ft_putstr("Error:\ntwo arguments required, ");
-		ft_putstr("the second must have (.ber) extension");
+		ft_putstr("Error:\n2 arguments required & second chould be with .ber");
 		exit(1);
 	}
 	return (0);

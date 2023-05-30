@@ -6,13 +6,13 @@
 /*   By: hel-haia <hel-haia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 23:26:22 by hel-haia          #+#    #+#             */
-/*   Updated: 2023/05/30 06:11:01 by hel-haia         ###   ########.fr       */
+/*   Updated: 2023/05/31 00:02:46 by hel-haia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-char	**ft_read_the_map(char *path)
+char	**map_read(char *path)
 {
 	int		fd;
 	char	*line;
@@ -37,7 +37,7 @@ char	**ft_read_the_map(char *path)
 	return (map);
 }
 
-int	argv_checker(char *av)
+int	check_extension(char *av)
 {
 	int	i;
 
@@ -51,31 +51,31 @@ int	argv_checker(char *av)
 	return (0);
 }
 
-void	start_the_game(t_data data, char **v_path)
+void	start_the_game(t_info info, char **v_path)
 {
-	if (map_check(&data) && valid_path(v_path))
+	if (map_check(&info) && valid_path(v_path))
 	{
-		initialize_the_struct(&data);
-		draw_the_map(&data);
-		mlx_loop(data.mlx_ptr);
+		infos_init(&info);
+		map_drawin(&info);
+		mlx_loop(info.mlx_ptr);
 	}
-	else if (data.map)
+	else if (info.map)
 	{
 		ft_putstr("Error:\nSomthing is going wrong... try to fix it.");
 		exit(1);
 	}
 }
 
-int	main(int argc, char **argv)
+int	main(int ac, char **av)
 {
-	t_data	data;
+	t_info	info;
 	char	**v_path;
 
-	if (argc == 2 && argv_checker(argv[1]) == 1)
+	if (ac == 2 && check_extension(av[1]) == 1)
 	{
-		v_path = ft_read_the_map(argv[1]);
-		data.map = ft_read_the_map(argv[1]);
-		start_the_game(data, v_path);
+		v_path = map_read(av[1]);
+		info.map = map_read(av[1]);
+		start_the_game(info, v_path);
 	}
 	else
 	{

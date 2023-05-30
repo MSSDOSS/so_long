@@ -6,7 +6,7 @@
 /*   By: hel-haia <hel-haia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 23:31:14 by hel-haia          #+#    #+#             */
-/*   Updated: 2023/05/30 06:02:22 by hel-haia         ###   ########.fr       */
+/*   Updated: 2023/05/31 00:24:05 by hel-haia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,26 @@
 # include <unistd.h>
 # include <fcntl.h>
 
-typedef struct s_data
+# define ZR "assets/zombi_right.xpm"
+# define ZL "assets/zombi_left.xpm"
+# define BW "assets/blue_brick.xpm"
+# define OMC "assets/oldman_collect.xpm"
+# define BB "assets/black_back.xpm"
+# define DEX "assets/purple_exit.xpm"
+# define KEY_ESC 53
+# define KEY_Z 6
+# define KEY_Q 12
+# define KEY_S 1
+# define KEY_D 2
+# define KEY_UP 126
+# define KEY_LEFT 123
+# define KEY_DOWN 125
+# define KEY_RIGHT 124
+
+typedef struct s_info
 {
 	void	*mlx_ptr;
-	void	*win;
+	void	*mlx_win;
 	char	**map;
 	void	*space;
 	void	*wall;
@@ -39,35 +55,19 @@ typedef struct s_data
 	int		x_player;
 	int		y_player;
 	int		moves;
-}	t_data;
-
-# define D2R "assets/zombi_right.xpm"
-# define D2L "assets/zombi_left.xpm"
-# define DHW "assets/blue_brick.xpm"
-# define DFR "assets/zombie_fruit.xpm"
-# define DF "assets/black_back.xpm"
-# define DEX "assets/purple_exit.xpm"
-# define KEY_ESC 53
-# define KEY_Z 6
-# define KEY_Q 12
-# define KEY_S 1
-# define KEY_D 2
-# define KEY_UP 126
-# define KEY_LEFT 123
-# define KEY_DOWN 125
-# define KEY_RIGHT 124
+}	t_info;
 
 char	*get_next_line(int fd);
-int		draw_the_map(t_data *data);
-void	initialize_the_struct(t_data *data);
-char	**ft_read_the_map(char *path);
+void	infos_init(t_info *info);
+int		map_drawin(t_info *info);
 int		valid_path(char **v_path);
-int		map_checker(t_data *data);
-void	controller(t_data *data);
-void	player_q(t_data *data);
-void	player_z(t_data *data);
-void	player_d(t_data *data);
-void	player_s(t_data *data);
-void	ft_check_permissions(t_data *data);
+int		check_the_map(t_info *info);
+void	keys_manage(t_info *info);
+char	**map_read(char *path);
+void	player_q(t_info *info);
+void	player_z(t_info *info);
+void	player_d(t_info *info);
+void	player_s(t_info *info);
+void	ft_check_permissions(t_info *info);
 
 #endif
