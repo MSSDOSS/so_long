@@ -6,7 +6,7 @@
 /*   By: hel-haia <hel-haia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 23:26:22 by hel-haia          #+#    #+#             */
-/*   Updated: 2023/05/31 00:02:46 by hel-haia         ###   ########.fr       */
+/*   Updated: 2023/05/31 03:20:59 by hel-haia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,21 +51,6 @@ int	check_extension(char *av)
 	return (0);
 }
 
-void	start_the_game(t_info info, char **v_path)
-{
-	if (map_check(&info) && valid_path(v_path))
-	{
-		infos_init(&info);
-		map_drawin(&info);
-		mlx_loop(info.mlx_ptr);
-	}
-	else if (info.map)
-	{
-		ft_putstr("Error:\nSomthing is going wrong... try to fix it.");
-		exit(1);
-	}
-}
-
 int	main(int ac, char **av)
 {
 	t_info	info;
@@ -75,12 +60,21 @@ int	main(int ac, char **av)
 	{
 		v_path = map_read(av[1]);
 		info.map = map_read(av[1]);
-		start_the_game(info, v_path);
+		if (map_check(&info) && valid_path(v_path))
+		{
+			infos_init(&info);
+			map_drawin(&info);
+			mlx_loop(info.mlx_ptr);
+		}
+		else if (info.map)
+		{
+			ft_putstr("Error:\nINVALID MAP");
+			exit(1);
+		}
 	}
 	else
 	{
-		ft_putstr("Error:\ntwo arguments required, ");
-		ft_putstr("the second must have (.ber) extension");
+		ft_putstr("Error:\n2 arguments required & second chould be with .ber");
 		exit(1);
 	}
 	return (0);

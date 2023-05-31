@@ -6,7 +6,7 @@
 /*   By: hel-haia <hel-haia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 23:31:14 by hel-haia          #+#    #+#             */
-/*   Updated: 2023/05/31 00:24:05 by hel-haia         ###   ########.fr       */
+/*   Updated: 2023/05/31 03:15:01 by hel-haia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*get_next_line(int fd);
 void	infos_init(t_info *info);
 int		map_drawin(t_info *info);
 int		valid_path(char **v_path);
-int		check_the_map(t_info *info);
+int		map_check(t_info *info);
 void	keys_manage(t_info *info);
 char	**map_read(char *path);
 void	player_q(t_info *info);

@@ -6,13 +6,13 @@
 /*   By: hel-haia <hel-haia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 21:49:13 by hel-haia          #+#    #+#             */
-/*   Updated: 2023/05/31 00:02:46 by hel-haia         ###   ########.fr       */
+/*   Updated: 2023/05/31 00:57:31 by hel-haia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-int	exit_the_game(t_info *info)
+int	to_exit_game(t_info *info)
 {
 	mlx_destroy_image(info->mlx_ptr, info->space);
 	mlx_destroy_image(info->mlx_ptr, info->wall);
@@ -53,7 +53,7 @@ void	game_events(int keycode, t_info *info)
 int	keypress(int keycode, t_info *info)
 {
 	if (keycode == KEY_ESC)
-		exit_the_game(info);
+		to_exit_game(info);
 	else
 	{
 		game_events(keycode, info);
@@ -97,5 +97,5 @@ void	keys_manage(t_info *info)
 {
 	map_drawin(info);
 	mlx_hook(info->mlx_win, 2, 0, keypress, info);
-	mlx_hook(info->mlx_win, 17, 0, exit_the_game, info);
+	mlx_hook(info->mlx_win, 17, 0, to_exit_game, info);
 }

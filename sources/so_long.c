@@ -6,7 +6,7 @@
 /*   By: hel-haia <hel-haia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 23:26:22 by hel-haia          #+#    #+#             */
-/*   Updated: 2023/05/31 00:05:43 by hel-haia         ###   ########.fr       */
+/*   Updated: 2023/05/31 03:15:01 by hel-haia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	main(int ac, char **av)
 	{
 		v_path = map_read(av[1]);
 		info.map = map_read(av[1]);
-		if (check_the_map(&info) && valid_path(v_path))
+		if (map_check(&info) && valid_path(v_path))
 		{
 			infos_init(&info);
 			map_drawin(&info);

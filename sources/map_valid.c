@@ -6,7 +6,7 @@
 /*   By: hel-haia <hel-haia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 23:46:12 by hel-haia          #+#    #+#             */
-/*   Updated: 2023/05/31 00:05:43 by hel-haia         ###   ########.fr       */
+/*   Updated: 2023/05/31 03:15:01 by hel-haia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int	is_validate(char **map)
 	return (1);
 }
 
-int	check_the_map(t_info *info)
+int	map_check(t_info *info)
 {
 	if (is_retangular(info->map) && is_surrounded_by_wall(info->map)
 		&& plyer_collect_exit(info)

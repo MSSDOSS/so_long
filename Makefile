@@ -24,7 +24,7 @@ bonus : $(NAME_BNS)
 $(NAME) : $(OBJECTS) $(LIBFT) sources/so_long.h
 	$(CC) $(FLAGS) $(OBJECTS) $(MLXFLAGS) $(LIBFT) -o $(NAME)
 
-%.o: %.c sources/so_long.h sources_bonus/so_long.h
+%.o: %.c sources/so_long.h sources_bonus/so_long_bonus.h
 	$(CC) $(FLAGS) -c $< -o $@
 
 $(NAME_BNS) : $(OBJECTS_BNS) $(LIBFT) sources_bonus/so_long_bonus.h
