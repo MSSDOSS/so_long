@@ -6,7 +6,7 @@
 /*   By: hel-haia <hel-haia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 23:31:14 by hel-haia          #+#    #+#             */
-/*   Updated: 2023/05/31 00:24:05 by hel-haia         ###   ########.fr       */
+/*   Updated: 2023/06/01 21:57:13 by hel-haia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,13 @@
 # define OMC "assets/oldman_collect.xpm"
 # define BB "assets/black_back.xpm"
 # define DEX "assets/purple_exit.xpm"
-# define EN "assets/purplevirus_enemy.xpm"
-# define EN2 "assets/hacker_enemy.xpm"
-# define EN3 "assets/heart_fruit.xpm"
-# define EN4 "assets/redsnake_enemy.xpm"
+# define EN "assets/rass_chahboune.xpm"
+# define EN2 "assets/angry_hamza.xpm"
+# define EN3 "assets/rass_chahboune.xpm"
+# define EN4 "assets/angry_hamza.xpm"
 # define EN5 "assets/scolet_enemy.xpm"
+# define EN6 "assets/scolet_enemy.xpm"
+# define EN7 "assets/scolet_enemy.xpm"
 # define KEY_ESC 53
 # define KEY_Z 6
 # define KEY_Q 12
